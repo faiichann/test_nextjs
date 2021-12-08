@@ -1,12 +1,23 @@
 import SearchResult from '../components/searchResult'
-import styles from '../styles/Home.module.css'
+import GlobalStyle from '../styles/globalStyle';
+import styled from "styled-components"
+import { Row, Col } from 'antd';
+
+const Container = styled.div`
+    width: 100%;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  ;
+    `
 
 export default function Home() {
 
   return (
-    <div className={styles.container}>
-      <h1>restaurants</h1>
+    <Container>
+      <GlobalStyle/>
       <SearchResult />
-    </div>
+    </Container>
   )
 }

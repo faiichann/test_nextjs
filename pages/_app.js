@@ -1,4 +1,3 @@
-import '../styles/globals.css'
 import Layout from '../components/layout'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
