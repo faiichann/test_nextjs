@@ -1,16 +1,13 @@
-import { SearchActionType } from "../type";
-import data from "../../data.json"
+import { SearchActionType } from "./searchType";
 
 const INTIAL_STATE = {
-    keyword: null,
-    search: data
+    keyword: ''
 }
 export const searchReducer = (state = INTIAL_STATE, { type, payload = { } }) => {
+    console.log(type,payload)
     switch (type) {
         case SearchActionType.SET_KEYWORD:
             return {...state, keyword: payload.keyword}
-        case SearchActionType.SET_SEARCH:
-            return {...state, search: payload.search}
         default:
             return state
     }

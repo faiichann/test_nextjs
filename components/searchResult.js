@@ -1,11 +1,22 @@
 import React from 'react';
+import data from '../data.json'
+import { useSelector } from 'react-redux'
 
-const SearchResult = ({data}) => {
-console.log(data)
+const SearchResult = () => {
+const searchKeyword = useSelector(state => state.search.keyword) 
+  console.log(searchKeyword)
+    console.log(data)
+
+    const searchFilter = (t) => 
+        t.description.toLowerCase().includes(searchKeyword) || 
+        t.title.toLowerCase().includes(searchKeyword) ||
+        t.name.toLowerCase().includes(searchKeyword)
+        
+        
     return (
         <>
             {data
-                ? data.map((item, index) => {
+                ? data.filter(searchFilter).map((item, index) => {
                       return (
                           <>
                          <div key={index}>
