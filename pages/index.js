@@ -1,4 +1,4 @@
-import SearchResult from '../components/searchResult'
+import Report from '../components/report'
 import GlobalStyle from '../styles/globalStyle';
 import styled from "styled-components"
 import { Row, Col } from 'antd';
@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <Container>
       <GlobalStyle/>
-      <SearchResult />
+      <Report />
     </Container>
   )
 }

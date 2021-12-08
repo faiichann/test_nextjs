@@ -1,17 +1,34 @@
-import HeaderWithConnect from './header'
-import Footer from './footer'
-import styled from "styled-components"
+import Header from './header'
+import styled from 'styled-components';
+import { Layout } from 'antd';
+import { memo } from 'react';
 
-const Main = styled.main`
-margin-top: 150px;
-width: 100%;
+const { Content } = Layout;
+const AppContainer = styled.div`
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    z-index: 0;
+    height: 100vh;
+`;
+const MainContent = styled(Content)`
+    height: ${(props) => {
+        const isheader = props?.isheader ? 8 : 0;
+        return `calc(100vh - ${isheader}%); `;
+    }};
+    width: 100%;
+    overflow-y: scroll;
 `
-export default function Layout({ children }) {
+
+// eslint-disable-next-line react/display-name
+const MainLayout = memo(({ children, header }) => {
     return (
-      <>
-        <HeaderWithConnect />
-        <Main>{children}</Main>
-        <Footer />
-      </>
-    )
-  }
+        <AppContainer>
+            {header && <Header {...header} />}
+            <MainContent isheader={header ? 'true' : 'false'}> {children}</MainContent>
+        </AppContainer>
+    );
+});
+
+export default MainLayout;

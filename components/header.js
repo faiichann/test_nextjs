@@ -1,71 +1,101 @@
 import styled from "styled-components"
 import { Row, Col,Input  } from 'antd';
-import { SearchOutlined ,SmileOutlined} from '@ant-design/icons';
-import {setKeyword} from '../redux/search/searchAction'
-import { useDispatch, useSelector } from 'react-redux';
+import { BarsOutlined ,DownloadOutlined ,HomeOutlined } from '@ant-design/icons';
+import { useMemo, memo } from 'react';
 
-const HeaderStyle = styled.div`
-    background: var(--Salmon-700);
+ const RowHeader = styled(Row)`
     width: 100%;
+    height: 8%;
     top: 0;
-    left: 0;
-    position: fixed;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
     align-items: center;
-    `
-const Logo = styled.div`
-    height: 80px;
-    width: 80px;
-    border: solid 2px var(--White);
-    border-radius: 10px;
-    margin: 15px;
+    background-color: var(--White);
+`;
+
+ const TextHeader = styled.div`
+    width: 100%;
+    height: 36px;
+    color: var(--Gray-400);
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--White);
-    flex-direction: column;
-    `
-  const InputSearch = styled.input`
-    border: solid 2px red;
-    border-radius: 20px;
-    width: 90%;
+`;
+
+ const BackHeader = styled.div`
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow:  0 3px 6px #e0e0e0;
+    width: 40px;
     height: 40px;
-    margin: 10px;
-    padding: 10px;
-    color: var(--Salmon-700);
-    ;
-    `
-  const RowHeader = styled(Row)`
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-  `
-  const ColHeader = styled(Col)`
-    display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
-  `
+    cursor: pointer;
+`;
+ const LeftDiv = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 10px;
+    align-items: center;
+    cursor: pointer;
+`;
+ const RightDiv = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    align-items: center;
+    cursor: pointer;
+    `
 
-function Header() {
-     const dispatch = useDispatch()
-     const inputSearch = (e) => {
-     const keyword = e.target.value.toLowerCase()
-     console.log(keyword)
-     dispatch(setKeyword(keyword))
+// eslint-disable-next-line react/display-name
+const Header = memo(( title, right, left ) => {
+
+  const leftCon = useMemo(() => {
+      if (left === 'back') {
+          return (
+              <HomeOutlined style={{ color: '#8a8888' }} />
+          )
+      } else {
+          return left;
       }
+  }, [left])
 
-    return(
-    <HeaderStyle>
-       <RowHeader>
-      <ColHeader span={4}  ><Logo><SmileOutlined style={{ fontSize: '25px', color: 'white' }} />Logo</Logo></ColHeader>
-      <ColHeader span={14} style={{color: 'white',width: '100%'}}><h1>Find Foods 4U</h1></ColHeader>
-      <ColHeader span={5} style={{justifyContent: 'flex-end',flexDirection: 'column',width: '100%'}}>
-        <InputSearch placeholder="Search Restaurant Here!!"  onChange={inputSearch} />
-      </ColHeader>
-    </RowHeader>
-    </HeaderStyle>
-        ) 
-  }
-  
-  export default Header
+  const rightCon = useMemo(() => {
+      if (right === 'menu') {
+          return (
+              <>
+                  <BarsOutlined />
+              </>
+          )
+      } else if (right === 'save') {
+          return (
+              <>
+                  <DownloadOutlined style={{ color: '#8a8888', fontSize: '24px' }} />
+              </>
+          )
+      } else {
+          return right;
+      }
+  }, [right])
+
+  return (
+      <>
+          <RowHeader justify="space-between">
+              <Col span={4}>
+                  <LeftDiv>{leftCon}</LeftDiv>
+              </Col>
+              <Col span={16}>
+                  <TextHeader>{title}</TextHeader>
+              </Col>
+              <Col span={4}>
+                  <RightDiv>{rightCon}</RightDiv>
+              </Col>
+          </RowHeader>
+      </>
+  )
+})
+
+export default Header
