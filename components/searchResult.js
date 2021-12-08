@@ -67,6 +67,13 @@ const searchKeyword = useSelector(state => state.search.keyword)
   console.log(searchKeyword)
     console.log(data)
 
+//--------เปิดบัญชีgoogle clound ไม่ได้เนื่องจากติดปัญหา Payment Profile ทำให้ใช้API ไม่ได้----------------
+// const fetchData = async()=> {
+//     const res = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants%20in%20Sydney&key=AIzaSyDvylkYS7T5ExIjgw0DnKeAT1G193fNa4M`)
+//     const data = await res.json()
+//     return data;
+// }
+
     const searchFilter = (t) => 
         t.description.toLowerCase().includes(searchKeyword) || 
         t.title.toLowerCase().includes(searchKeyword) ||
